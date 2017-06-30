@@ -61,11 +61,11 @@ Module.register("MMM-sight-words", {
 
 		setInterval(function() {
 			if (moment().format('HH:mm:ss') === '00:00:00') {
-				if (++this._wordIndex >= this._words.length) {
-					this._wordIndex = 0;
+				if (++self._wordIndex >= self._words.length) {
+					self._wordIndex = 0;
 				}
 
-				this.updateDom();
+				self.updateDom();
 			}
 		}, 1000);
 	},

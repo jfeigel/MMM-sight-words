@@ -2,7 +2,7 @@
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/).
 
-Todo: Insert description here!
+Displays a daily word from [Sight Word](http://www.sightwords.com/) based on the age group set in the config.
 
 ## Using the module
 
@@ -24,5 +24,4 @@ var config = {
 
 | Option           | Description
 |----------------- |-----------
-| `option1`        | *Required* DESCRIPTION HERE
-| `option2`        | *Optional* DESCRIPTION HERE TOO <br><br>**Type:** `int`(milliseconds) <br>Default 60000 milliseconds (1 minute)
+| `group`          | *Optional* Age group of words to display <br><br>**Type:** `string` <br>Default `"prek"`<br>Valid options `"prek"`, `"kindergarten"`, `"first"`, `"second"`, `"third"`, `"noun"`

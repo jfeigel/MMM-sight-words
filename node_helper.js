@@ -8,9 +8,7 @@
 var NodeHelper = require("node_helper");
 var words = require("./words.json");
 
-var groups = [
- "prek"
-];
+var groups = Object.keys(words);
 
 module.exports = NodeHelper.create({
 

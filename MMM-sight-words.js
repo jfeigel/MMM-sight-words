@@ -9,12 +9,17 @@
 
 Module.register("MMM-sight-words", {
 	defaults: {
-		updateInterval: 60000,
-		retryDelay: 5000,
 		group: "prek"
 	},
 
-	requiresVersion: "2.1.0", // Required version of MagicMirror
+	requiresVersion: "2.1.0", // Required version of MagicMirror,
+	_wordIndex: 0,
+	_words: [],
+
+	// Define required scripts.
+	getScripts: function() {
+		return ["moment.js", "moment-timezone.js"];
+	},
 
 	start: function() {
 		var self = this;
@@ -24,41 +29,7 @@ Module.register("MMM-sight-words", {
 		//Flag for check if module is loaded
 		this.loaded = false;
 
-		// Schedule update timer.
-		this.getData();
-		setInterval(function() {
-			self.updateDom();
-		}, this.config.updateInterval);
-	},
-
-	/*
-	 * getData
-	 * get the list of words for the provided group
-	 *
-	 */
-	getData: function() {
-		var self = this;
-
 		self.sendSocketNotification("MMM-sight-words-LOAD", this.config.group);
-	},
-
-
-	/* scheduleUpdate()
-	 * Schedule next update.
-	 *
-	 * argument delay number - Milliseconds before next update.
-	 *  If empty, this.config.updateInterval is used.
-	 */
-	scheduleUpdate: function(delay) {
-		var nextLoad = this.config.updateInterval;
-		if (typeof delay !== "undefined" && delay >= 0) {
-			nextLoad = delay;
-		}
-		nextLoad = nextLoad ;
-		var self = this;
-		setTimeout(function() {
-			self.getData();
-		}, nextLoad);
 	},
 
 	getDom: function() {
@@ -71,16 +42,9 @@ Module.register("MMM-sight-words", {
 			wrapper.innerHTML = "Getting your word...";
 		}
 
-		// If this.dataRequest is not empty
-		if (this.dataRequest) {
-			wrapper.innerHTML = this.dataRequest.title;
-		}
+		wrapper.innerHTML = this._words[this._wordIndex];
 
 		return wrapper;
-	},
-
-	getScripts: function() {
-		return [];
 	},
 
 	processData: function(res) {
@@ -90,10 +54,20 @@ Module.register("MMM-sight-words", {
 			return;
 		}
 
-		this.dataRequest = { title: res.data[0] };
+		this._words = res.data;
 		if (this.loaded === false) { self.updateDom(self.config.animationSpeed) ; }
 		this.loaded = true;
 		this.updateDom();
+
+		setInterval(function() {
+			if (moment().format('HH:mm:ss') === '00:00:00') {
+				if (++this._wordIndex >= this._words.length) {
+					this._wordIndex = 0;
+				}
+
+				this.updateDom();
+			}
+		}, 1000);
 	},
 
 	// socketNotificationReceived from helper

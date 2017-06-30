@@ -1,18 +1,14 @@
 {
   "name": "MMM-sight-words",
   "version": "1.0.0",
-  "description": "Todo: Insert description here!",
+  "description": "Daily Sight Word",
   "main": "MMM-sight-words.js",
-  "author": "",
+  "author": "jfeigel",
   "license": "MIT",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13"
+  },
   "devDependencies": {
-    "grunt": "latest",
-    "grunt-eslint": "latest",
-    "grunt-jsonlint": "latest",
-    "grunt-markdownlint": "^1.0.13",
-    "grunt-stylelint": "latest",
-    "grunt-yamllint": "latest",
-    "stylelint-config-standard": "latest",
-    "time-grunt": "latest"
   }
 }

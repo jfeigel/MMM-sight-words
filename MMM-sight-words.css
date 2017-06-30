@@ -2,9 +2,20 @@
  *
  * MMM-sight-words
  *
- * 
+ *
  * MIT Licensed.
  *
  * Custom here your css module
  *
  */
+
+p {
+  color: #fff;
+  margin: 1rem 0 0;
+  font-size: 4rem;
+}
+
+p.loading {
+  color: inherit;
+  font-size: 2rem;
+}

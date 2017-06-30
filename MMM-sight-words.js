@@ -21,6 +21,10 @@ Module.register("MMM-sight-words", {
 		return ["moment.js", "moment-timezone.js"];
 	},
 
+	getStyles: function() {
+		return ["MMM-sight-words.css"];
+	},
+
 	start: function() {
 		var self = this;
 		var dataRequest = null;
@@ -36,13 +40,15 @@ Module.register("MMM-sight-words", {
 		var self = this;
 
 		// create element wrapper for show into the module
-		var wrapper = document.createElement("div");
+		var wrapper = document.createElement("p");
 
 		if (!this.loaded) {
 			wrapper.innerHTML = "Getting your word...";
+			wrapper.className = "loading";
+		} else {
+			wrapper.innerHTML = this._words[this._wordIndex];
+			wrapper.className = "";
 		}
-
-		wrapper.innerHTML = this._words[this._wordIndex];
 
 		return wrapper;
 	},
